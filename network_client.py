@@ -189,7 +189,7 @@ class NetworkThread(QThread):
             if msg_type == "upload_ready":
                 # Server is ready for our file upload.
                 port = data.get("port")
-                key = data.get("unique_filename_key")
+                key = data.get("unique_filename")
                 filepath = self.upload_requests.pop(key, None) # Get the filepath we stored earlier.
                 if filepath:
                     self.file_sender = FileSenderThread(self.ip, port, filepath)
@@ -267,4 +267,5 @@ class NetworkThread(QThread):
     def send_get_history_request(self, group_name):
         """Sends a request for a group's message history."""
         request_msg = protocol.create_get_history_request(group_name)
+
         self.send_message(request_msg)
